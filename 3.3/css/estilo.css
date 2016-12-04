@@ -173,14 +173,25 @@
 	padding: 8.2px;
 }
 
-.busca-pedidos input[type=submit]{
+.busca-pedidos input[type=button]{
 	padding: 10px;	
 	background-color: #0074BC;
 	color: white;
 	border: none;
 }
 
-.busca-pedidos input[type=submit]:hover{
+#pesquisar{
+	padding: 10px;	
+	background-color: #0074BC;
+	color: white;
+	border: none;
+}
+
+#pesquisar:hover{
+	background-color: #005890;
+}
+
+.busca-pedidos input[type=button]:hover{
 	background-color: #005890;
 }
 

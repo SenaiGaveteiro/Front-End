@@ -11,7 +11,7 @@ $('#recuperar-senha-ajax').submit(function (e) { //
 	$('#bt_recuperar').val("Enviando..."); //	Definindo o valor para "Enviando..."
 
 	$.ajax({
-		url: 'http://192.168.2.70:80/GaveteiroApi/senha/recuperar',
+		url: 'http://192.168.1.50:8081/GaveteiroApi/senha/recuperar',
 		method: 'POST',
 		dataType: 'json', 
 		contentType:'application/json',

@@ -11,7 +11,7 @@ $('#formulario-login-ajax').submit(function (e) { //
 	$('bt_recuperar').val("Enviando..."); //	Definindo o valor para "Enviando..."
 
 	$.ajax({
-		url: 'http://192.168.2.70:80/GaveteiroApi/login',
+		url: 'http://192.168.1.50:8081/GaveteiroApi/login',
 		method: 'POST',
 		dataType: 'json', 
 		contentType:'application/json',
@@ -19,12 +19,13 @@ $('#formulario-login-ajax').submit(function (e) { //
 			email: $('#logar-email').val(),
 			senha: $('#logar-senha').val()	//	Método, é o valor que eu vou filtrar
 		})
+
 	}).done(function(data){
 
 		console.log(data);
-		//data = JSON.parse(data);
 		console.log(data["token"]);
-		sessionStorage.setItem("usuario", data.usuario);
+		console.log("Usuário:"+ sessionStorage.getItem("usuario"));
+		sessionStorage.setItem("id", data.usuario.idUsuario);
 		sessionStorage.setItem("token", data.token);
 		window.location.assign("menu.html");
 	});

@@ -10,7 +10,28 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/funcao.js"></script>
-		
+		<script>
+			var token = sessionStorage.getItem('token');
+			if(token == null)
+				window.location.assign('index.html');
+
+		</script>
+		<style>
+			#pesquisar{
+				padding: 10px;	
+				background-color: #0074BC;
+				color: white;
+				border: none;
+			}
+
+			#pesquisar:hover{
+				background-color: #005890;
+			}
+
+			.paginacao-pedidos{
+				margin-bottom: 150px;
+			}
+		</style>
 	</head>
 	<body>	
 			<!---				MENU 	TOP		 		---->
@@ -19,11 +40,11 @@
 				<div class="col-md-3 col-xs-12  menu-usuario">
 					<div>
 						<span class="glyphicon glyphicon-user"> </span>  
-						<label data-toggle="tooltip" data-placement="right" title="Olá, seja bem vindo!"> Franciele de Lima </label>
+						<label id="nome-usuario" data-toggle="tooltip" data-placement="right" title="Olá, seja bem vindo!"></label>
 					</div>
 					<div>
 						<span class="glyphicon glyphicon-lock"> </span>
-						<label> Gaveteiro</label>
+						<label id="empresa-solicitante"></label>
 					</div>
 					</span>
 				</div>
@@ -35,7 +56,7 @@
 				</div>
 				
 				<div class="col-md-3 col-xs-1 menu-sair">
-					<a href="login.html">
+					<a href="index.html">
 						<span class="glyphicon glyphicon-log-out"></span>
 						Sair
 					</a>
@@ -98,7 +119,7 @@
 					
 						<form method="POST">
 							<input type="text" class="col-md-7 col-xs-7" id="search" maxlength="70"  name="search" placeholder="Digite o nome da empresa solicitante">
-							<input type="submit" class="col-md-2 col-xs-2" value="Buscar">
+							<input id="pesquisar" type="button" class="col-md-2 col-xs-2" value="Buscar">
 						</form>								
 					</div>
 				</div>
@@ -132,7 +153,7 @@
 					</div>
 					
 
-						<!----			PAGINAÇÃO 	LISTA DE PEDIDOS		--->
+						<!----			PAGINAÇÃO 	LISTA DE PEDIDOS		-->
 						<div class="col-md-12">
 							<div class="paginacao-pedidos">
 								<ul class="pagination">
@@ -171,8 +192,8 @@
 							
 							<div class="panel  panel-primary lista-pedidos">							
 								<div class="panel-heading"> <!---	CABECALHO TABELA PEDIDOS	-->
-									<p class="titulo-pedido">Nº do pedido: W7186852658								
-										<select>
+									<p class="titulo-pedido"><span>Nº do pedido: W7186852658</span>								
+										<select id="status-alterar">
 											<option selected value="status" disabled="disabled"> Selecione um status</option>
 											<option> Solicitado </option>
 											<option> Em aprovação </option>
@@ -249,7 +270,7 @@
 								
 							<!----			BOTOES MODAL		-->
 							<div class="modal-footer">	
-								<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Salvar alterações</button>
+								<button id="alterar" type="button" class="btn btn-primary center-block" data-dismiss="modal">Salvar alterações</button>
 							</div>
 						</div>
 				</div>
