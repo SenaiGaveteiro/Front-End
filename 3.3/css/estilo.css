@@ -1,0 +1,335 @@
+﻿body{
+	font-family: Helvetica, Roboto, Arial, sans-serif;
+	margin: 0 auto;
+}
+
+
+
+/*			MENU - TOP			*/
+.header{
+	background-color: #0074BC;
+	box-shadow: #C0C0C0 2px 2px 1px;
+	overflow: hidden;
+}
+
+
+
+/*			TELA 	DE 	LOGIN			*/
+
+.logo-esquerdo{
+	width: 190px;
+	height: 85px;
+	background-color: #0074BC;
+}
+
+.logo-direito{
+	float: right;
+	width: 100px;
+	height: 85px;
+}
+
+.icone{
+	margin: 1.5% auto 1%;
+	width: 180px;
+	height: 180px;
+	border-radius: 150px;
+	-webkit-border-radius: 150px;
+	-moz-border-radius: 150px;
+	background-image: url("../imagens/gaveteiro-logo1.png");
+	background-position: center;	
+	background-repeat: no-repeat;
+	background-color: #0074BC;
+}
+
+.logar{
+	margin: 0 auto;
+	width: 300px;
+}
+
+.logar input[type=text]{
+	padding: 5px;	
+	width: 100%;
+	margin: 5px auto 20px;
+	
+}
+
+.logar input[type=password]{
+	padding: 5px;
+	width: 100%;
+	margin: 5px auto 7px;
+}
+
+.logar a{
+	font-size: 13px;
+	color: #0074BC;	
+}
+
+.logar h2{
+	color: #0074BC;
+	margin-bottom: 6%;
+	font-size: 24px;
+	font-weight: bolder;
+}
+
+.bt_logar{
+	background-color: #0074BC;
+	padding: 10px;
+	color: white;
+	width: 100%;
+	margin: 15px auto;
+	border: none;	
+}
+
+.bt_logar:hover{
+	background-color: #005890;
+}
+
+
+
+/*			ESQUECEU SUA SENHA			*/
+
+.bt_recuperar{
+	background-color: #0074BC;
+	padding: 10px;
+	color: white;
+	width: 100%;
+	margin: 0px auto 30px;
+	border: none;	
+}
+
+.bt_recuperar:hover{
+	background-color: #005890;
+}
+
+
+
+/*			RODAPE					*/
+
+.rodape{
+	position: fixed;
+	width: 100%;
+	height: 35px;
+	top: auto;
+	bottom: 0px;
+	background-color: #363636;	
+	color: white;
+	font-size: 16px;
+	text-align:center;
+	box-shadow: 0 0 3px 0 #000;
+}
+
+.rodape p{	
+	padding-top: 6px;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+
+/*				MENU 	PEDIDOS  - SUPERIOR    	*/
+
+.menu-usuario{
+	color: white;
+	margin-top: 23px;
+}
+
+.menu-logo{
+	overflow: hidden;
+	text-align: center;
+}
+
+.menu-sair{
+	margin-top: 30px;
+}
+
+.menu-sair a{
+	color: white;
+	font-size: 19px;
+	float: right;
+	text-decoration: none;
+}
+
+.menu-sair a:hover{
+	color: #F0F0F0	
+}
+
+.menu-padrao{
+	background-color: #0074BC;
+}
+
+
+
+/*					CONTEUDO					 	*/
+
+.busca-pedidos {
+	margin-top: 25px;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.busca-pedidos  select{
+	padding: 10px;	
+}
+
+.busca-pedidos input[type=text]{
+	padding: 8.2px;
+}
+
+.busca-pedidos input[type=submit]{
+	padding: 10px;	
+	background-color: #0074BC;
+	color: white;
+	border: none;
+}
+
+.busca-pedidos input[type=submit]:hover{
+	background-color: #005890;
+}
+
+
+.titulo-lista{
+	margin: -1px auto;
+	color: #363636;
+	font-size: 21px;
+	text-align: center;
+	 font-weight: bolder;
+}
+
+.lista-pedidos{
+	margin-top: 20px;	
+}
+
+.centralizar-linha{
+	text-align: center;	
+}
+
+.paginacao-pedidos ul{
+	margin: 0;
+	float: right;
+}
+
+
+/*			MODAL 		DADOS 		PEDIDOS			*/
+
+.modal-pedido{
+	 overflow: hidden;	
+}
+
+.titulo-pedido{
+	margin: 0 auto;
+	color: white;
+	font-size: 21px;
+	font-weight: bolder;
+	overflow: hidden;	
+}
+.titulo-pedido-status{
+
+	margin: 0 auto;
+	color: white;
+	text-align:right;
+	font-size: 10px;
+}
+
+.titulo-pedido select{
+	float: right;
+	color: black;
+	font-size: 16px;
+	padding: 5px;
+	font-weight: normal;
+	width: 250px;
+}
+
+.pedido-total{
+	background-color: #F0F0F0;
+	padding: 1px;
+	text-align: center;
+}
+
+.pedido-total p{
+	font-size: 20px;
+	margin-top: 8px;
+	color: black;
+	right: 10px;
+}
+
+
+.modal-fechar {
+	margin-bottom: 30px;	
+}
+
+
+/*				MEDIAS SCREENS 			*/
+
+@media screen and (max-width: 991px){
+
+.busca-pedidos {
+	margin-top: 15px;
+	margin-bottom: 25px;
+}
+
+.menu-usuario{
+	text-align: center;
+	
+}
+
+.menu-sair{
+	left: 20px;
+	float: right;
+}
+
+.menu-logo{
+	left: 20px;
+}
+
+}
+
+
+@media screen and (max-width: 640px){
+
+.icone{
+	margin: 5% auto 2%;
+	width: 140px;
+	height: 140px;
+	background-image: url("../imagens/gaveteiro-logo2.png");
+}
+
+.titulo-pedido select{
+	width: 100%;
+}
+
+.busca-pedidos  select{
+	width: 100%;	
+}
+
+.busca-pedidos input[type=text]{
+	width: 70%;
+}
+
+.busca-pedidos input[type=submit]{
+	width: 30%;
+}
+
+
+}
+
+@media screen and (max-width: 409px){
+
+.logo-esquerdo{
+	width: 150px;
+	height: 65px;
+	background-color: #0074BC;
+}
+
+.logo-direito{
+	float: right;
+	width: 80px;
+	height: 65px;
+}
+
+.menu-sair{
+	float: right;
+}
+
+.menu-sair a{
+	font-size: 16px;
+}
+
+}

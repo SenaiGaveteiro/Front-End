@@ -1,0 +1,277 @@
+﻿<html>
+	<head>
+		<link rel="shortcut icon" href="imagens/favicon.ico" >
+		<title>Gaveteiro - Menu</title>
+		<meta charset="UTF-8">
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<link type="text/css" rel="stylesheet" href="css/estilo.css">
+		
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/funcao.js"></script>
+		
+	</head>
+	<body>	
+			<!---				MENU 	TOP		 		---->
+			<div id="corpo_acima" name="corpo_acima">
+			<div class="header menu-padrao col-md-12">			
+				<div class="col-md-3 col-xs-12  menu-usuario">
+					<div>
+						<span class="glyphicon glyphicon-user"> </span>  
+						<label data-toggle="tooltip" data-placement="right" title="Olá, seja bem vindo!"> Franciele de Lima </label>
+					</div>
+					<div>
+						<span class="glyphicon glyphicon-lock"> </span>
+						<label> Gaveteiro</label>
+					</div>
+					</span>
+				</div>
+			
+				<div class="col-md-6 col-xs-11 menu-logo">
+					<a href="menu.html"> 
+						<img src="imagens/gaveteiro-logo.png" class="logo-esquerdo menu-padrao"> 
+					</a>
+				</div>
+				
+				<div class="col-md-3 col-xs-1 menu-sair">
+					<a href="login.html">
+						<span class="glyphicon glyphicon-log-out"></span>
+						Sair
+					</a>
+				</div>	
+				
+			</div>	
+			</div>
+			<!---			FILTRO DE BUSCA DE PEDIDOS ---->
+			<div class="col-md-12">	
+				<div class="col-md-12 busca-pedidos">
+					<div>
+						<select class="col-md-3 col-xs-3" id="combobox" name="combobox" >
+							<option selected value="status" disabled="disabled"> Selecione um status </option>
+							<option value="status_aberto" > Aberto </option>
+							<option value="status_solicitado"> Solicitado </option>
+							<option value="status_emaprovacao"> Em aprovação </option>
+							<option value="status_cancelado"> Cancelado </option>
+							<option value="status_emtransporte"> Em transporte </option>
+							<option value="status_emanalise"> Em análise </option>
+							<option value="status_entregue"> Entregue </option>
+							<option value="status_aguardandotransporte"> Aguardando transporte</option>
+						</select>
+
+						<!-- <select name="grama" id="GramaSelecionado" style="width:125px;" onchange="desabilitarBox(this.value, 'comboGrama')">
+     <option value="dispositivo">Selecionar DISPOSITIVO</option>
+     <option value="1"selected="selected">GRAMA</option>
+    </select>
+    
+    
+    <select name="dispositivo" id="DispSelecionado" style="width:125px;" onchange="desabilitarBox(this.value,'comboDispositivo')">
+     <option value="grama">Selecionar GRAMA</option>
+     <option value="1"selected="selected">DISPOSITIVO</option
+
+
+     	function desabilitarBox(comboBoxValue, comboBox){  
+	if(comboBox == "comboGrama"){
+		document.getElementById("DispSelecionado").disabled = true;
+		if(comboBoxValue == "dispositivo"){
+			document.getElementById("GramaSelecionado").disabled = true;
+			document.getElementById("DispSelecionado").disabled = false;
+		}
+	} else if (comboBox == "comboDispositivo"){
+		document.getElementById("GramaSelecionado").disabled = true;
+		if(comboBoxValue == "grama"){
+			document.getElementById("DispSelecionado").disabled = true;
+			document.getElementById("GramaSelecionado").disabled = false;
+		}
+	}
+}
+
+
+
+
+
+
+
+     >
+    </select>  -->
+
+					
+						<form method="POST">
+							<input type="text" class="col-md-7 col-xs-7" id="search" maxlength="70"  name="search" placeholder="Digite o nome da empresa solicitante">
+							<input type="submit" class="col-md-2 col-xs-2" value="Buscar">
+						</form>								
+					</div>
+				</div>
+
+				<div id="corpo_abaixo" name="corpo_abaixo">
+								
+					<!----- 				LISTA DE PEDIDOS 				------> 
+				<div class="col-md-12">
+					<div class="panel  panel-default lista-pedidos">							
+						<div class="panel-heading">
+							<p class="titulo-lista">Lista de pedidos</p>
+						</div>
+														
+							<div class="table-responsive">
+								<table class="table">
+									<thead>
+										<tr>
+											<th>Nº do Pedido</th>
+											<th>Empresa solicitante</th>
+											<th>Data do Pedido</th>
+											<th>Valor do Pedido</th>
+											<th>Status</th>
+											<th class="centralizar-linha">Ação</th>
+									   </tr>
+									</thead>
+									<tbody id="tbody_listagem">
+										
+									</tbody>
+								</table>							  
+							</div>
+					</div>
+					
+
+						<!----			PAGINAÇÃO 	LISTA DE PEDIDOS		--->
+						<div class="col-md-12">
+							<div class="paginacao-pedidos">
+								<ul class="pagination">
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Previous">
+											<span aria-hidden="true">&laquo;</span>
+											<span class="sr-only">Previous</span>
+										</a>
+									</li>
+									<li class="page-item"><a class="page-link" href="#">1</a></li>
+									<li class="page-item"><a class="page-link" href="#">2</a></li>
+									<li class="page-item"><a class="page-link" href="#">3</a></li>
+									<li class="page-item"><a class="page-link" href="#">4</a></li>
+									<li class="page-item">
+										<a class="page-link" href="#" aria-label="Next">
+											<span aria-hidden="true">&raquo;</span>
+											<span class="sr-only">Next</span>
+										</a>
+									</li>
+								</ul>
+							</div>	
+						</div>
+					</div>
+				</div>
+			</div>
+
+		  <!--		 MODAL	DETALHE DO PEDIDO	 -->
+		  <div class="modal fade" id="myModal" role="dialog">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">					
+						<div class="modal-body">
+							
+							<div class="modal-fechar">
+								<button type="button" class="close" data-dismiss="modal">&times;</button> <!-- BOTAO FECHAR MODAL	-->
+							</div>
+							
+							<div class="panel  panel-primary lista-pedidos">							
+								<div class="panel-heading"> <!---	CABECALHO TABELA PEDIDOS	-->
+									<p class="titulo-pedido">Nº do pedido: W7186852658								
+										<select>
+											<option selected value="status" disabled="disabled"> Selecione um status</option>
+											<option> Solicitado </option>
+											<option> Em aprovação </option>
+											<option> Cancelado </option>
+											<option> Em transporte </option>
+											<option> Em análise </option>
+											<option> Em processo </option>
+											<option> Entregue </option>
+											<option> Aguardando transporte </option> 
+										</select>
+									</p>
+								</div>
+													
+								<div class="table-responsive"> <!--- TABELA PEDIDOS	-->
+									<table class="table">
+										<thead>
+											<tr>
+												<th>Produto</th>
+												<th class="centralizar-linha">Valor </th>
+												<th class="centralizar-linha">Quantidade</th>
+										   </tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>Amaciante de cheiro gostoso</td>
+												<td class="centralizar-linha">20,00</td>
+												<td class="centralizar-linha">4</td>
+											</tr>
+											<tr>
+												<td>Pacote de folha A4</td>
+												<td class="centralizar-linha">15,50</td>
+												<td class="centralizar-linha">40</td>
+											</tr>
+											<tr>
+												<td>Amaciante de cheiro gostoso</td>
+												<td class="centralizar-linha">20,00</td>
+												<td class="centralizar-linha">4</td>
+											</tr>
+											<tr>
+												<td>Pacote de folha A4</td>
+												<td class="centralizar-linha">15,50</td>
+												<td class="centralizar-linha">40</td>
+											</tr>	
+											<tr>
+												<td>Amaciante de cheiro gostoso</td>
+												<td class="centralizar-linha">20,00</td>
+												<td class="centralizar-linha">4</td>
+											</tr>
+											<tr>
+												<td>Pacote de folha A4</td>
+												<td class="centralizar-linha">15,50</td>
+												<td class="centralizar-linha">40</td>
+											</tr>	
+											<tr>
+												<td>Amaciante de cheiro gostoso</td>
+												<td class="centralizar-linha">20,00</td>
+												<td class="centralizar-linha">4</td>
+											</tr>
+											<tr>
+												<td>Pacote de folha A4</td>
+												<td class="centralizar-linha">15,50</td>
+												<td class="centralizar-linha">40</td>
+											</tr>	
+											
+										</tbody>
+									</table>
+								</div>	
+							</div>
+							
+							<!---	VALOR TOTAL DO PEDIDO	-->
+							<div class="pedido-total">
+								<p> Valor total:  R$ 500,00</p>
+							</div>
+								
+							<!----			BOTOES MODAL		-->
+							<div class="modal-footer">	
+								<button type="button" class="btn btn-primary center-block" data-dismiss="modal">Salvar alterações</button>
+							</div>
+						</div>
+				</div>
+			</div>
+	</div>		
+	
+	
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();   
+		});
+	</script>
+			
+			
+			
+			<!- <div>
+				<div class="rodape col-md-12">
+					<p>
+						Copyright @ 2016 Gaveteiro.com - Privacy
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
