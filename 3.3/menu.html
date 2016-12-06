@@ -9,13 +9,26 @@
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/funcao.js"></script>
 		<script>
-			var token = sessionStorage.getItem('token');
+			//alert(sessionStorage.getItem('email'));
+			var token 	= sessionStorage.getItem('token');
+			var email 	= sessionStorage.getItem('email');
+			var senha 	= sessionStorage.getItem('senha');
+			var uri   	= 'http://192.168.1.50:8081/GaveteiroApi';
+			var id    	= sessionStorage.getItem('id');
+			var usuario = JSON.parse(sessionStorage.getItem('usuario'));
 			if(token == null)
 				window.location.assign('index.html');
-
+			if(usuario.tipoUsuario.descricao.toString().localeCompare('Administrador') != 0 
+                || usuario.empresa.cnpj.toString().localeCompare('16.631.233/0001-22') != 0)
+            	$('html').prepend('<span id="admin" style="display:none">false</span>');
+            else
+            	$('html').prepend('<span id="admin" style="display:none">true</span>');
+			$('html').prepend('<span id="token" style="display:none">'+token+'</span>');
+			$('html').prepend('<input type="hidden" id="email-usuario" value="'+email+'"/>');
+			$('html').prepend('<input type="hidden" id="senha-usuario" value="'+senha+'"/>');
 		</script>
+		<script type="text/javascript" src="js/funcao.js"></script>
 		<style>
 			#pesquisar{
 				padding: 10px;	
@@ -24,13 +37,10 @@
 				border: none;
 			}
 
-			#pesquisar:hover{
-				background-color: #005890;
-			}
-
-			.paginacao-pedidos{
-				margin-bottom: 150px;
-			}
+			#pesquisar:hover{background-color: #005890;}
+			.paginacao-pedidos{margin-bottom: 150px;}
+			.paginacao-pedidos ul li{cursor: pointer;}
+			.rodape{z-index: 3;}
 		</style>
 	</head>
 	<body>	
@@ -56,7 +66,7 @@
 				</div>
 				
 				<div class="col-md-3 col-xs-1 menu-sair">
-					<a href="index.html">
+					<a href="" id="sair">
 						<span class="glyphicon glyphicon-log-out"></span>
 						Sair
 					</a>
@@ -282,11 +292,32 @@
 		$(document).ready(function(){
 			$('[data-toggle="tooltip"]').tooltip();   
 		});
+
+		$(document).delegate('.page-item', 'click',function(e){
+		  if($(this).hasClass('prev')){
+		  	var paginaAtual = Number($('.page-item.active').text());
+		  	paginaAtual = (paginaAtual - 1 >= 1) ? paginaAtual-1 : paginaAtual;
+		  	$('.page-item').removeClass('active');
+       	   	$('.page-item.'+paginaAtual).addClass('active');
+       	   	$('#tbody_listagem tr').fadeOut(0);
+       	   	$('.item-list-'+paginaAtual).fadeIn(0);
+		  } else if($(this).hasClass('next')) {
+		  	var paginaAtual = Number($('.page-item.active').text());
+		  	paginaAtual = (paginaAtual <= $('.pagination').length) ? paginaAtual+1 : paginaAtual;
+		  	$('.page-item').removeClass('active');
+       	   	$('.page-item.'+paginaAtual).addClass('active');
+       	   	$('#tbody_listagem tr').fadeOut(0);
+       	   	$('.item-list-'+paginaAtual).fadeIn(0);
+		  } else {
+       	   var paginaAtual = $(this).text();
+       	   $('.page-item').removeClass('active');
+       	   $(this).addClass('active');
+       	   $('#tbody_listagem tr').fadeOut(0);
+       	   $('.item-list-'+paginaAtual).fadeIn(0);
+       	  }
+    	});
 	</script>
-			
-			
-			
-			<!- <div>
+		
 				<div class="rodape col-md-12">
 					<p>
 						Copyright @ 2016 Gaveteiro.com - Privacy

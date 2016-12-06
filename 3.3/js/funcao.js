@@ -1,9 +1,11 @@
 // SELECT
-var token   = sessionStorage.getItem('token');
-var uri     = 'http://192.168.1.50:8081/GaveteiroApi';
-var idPedido = "";
+var token       = sessionStorage.getItem('token');
+var uri         = 'http://192.168.1.50:8081/GaveteiroApi';
+var idPedido    = "";
 var statusAtual = "";
+var idEmpresa   = 0; 
 $(document).ready(function() {
+
    $("#search").click(function (){
         // desabilitando o campo 
 	$('#combobox').attr("disabled", true);
@@ -64,22 +66,22 @@ $(document).ready(function() {
 
 //Populando LISTA
 
-
-
 $(document).ready(function(){
 
-        var token              = "";
+        var token              = $('#token').text();
         var empresaSolicitante = "";
         var todosOsPedidos     = [];
         var todosOsStatus      = [];
-
+        var email              = $('#email-usuario').val();;
+        var senha              = $('#senha-usuario').val();;
+        var admin              = $('#admin').text();;
     function logar(){
-
+        url = uri+'/login';
     $.ajax({
             
         type:"post",
-        url: 'http://192.168.1.50:8081/GaveteiroApi/login',
-        data: '{"email": "oliveira.dev1997@gmail.com", "senha" : "abc"}',
+        url: url,
+        data: '{"email": "'+ email +'", "senha" : "'+ senha +'"}',
         dataType: 'json',
         contentType: "application/json; charset=utf-8",
         crossDomain: true,
@@ -88,6 +90,7 @@ $(document).ready(function(){
             //return false;
                 token=retorno.token;
                 empresaSolicitante = retorno.usuario.empresa.razaoSocial;
+                idEmpresa = retorno.usuario.empresa.idEmpresa;           
                 var nomeUsuario = retorno.usuario.nome;
                 $('#empresa-solicitante').text(empresaSolicitante);
                 $('#nome-usuario').text(nomeUsuario);
@@ -96,6 +99,12 @@ $(document).ready(function(){
                 getPedido();
                 getStatus();
             }
+            if(retorno.usuario.tipoUsuario.descricao.toString().localeCompare('Administrador') != 0 
+                || retorno.usuario.empresa.cnpj.toString().localeCompare('16.631.233/0001-22') != 0)
+            {
+                $('#status-alterar').css('display', 'none'); 
+                $('#alterar').css('display', 'none');
+            }
         },
         error : function(error){
             console.log(error);
@@ -103,10 +112,12 @@ $(document).ready(function(){
         });
 
     function getPedido(){
-        
+        console.log(admin);
+        var url = (admin == 'false') ? uri+'/empresa/'+idEmpresa : uri;
+
         $.ajax({
 
-            url: 'http://192.168.1.50:8081/GaveteiroApi/pedido',
+            url: url+'/pedido',
             type:'get',
             headers:{ "Authorization": token},
             crossDomain: true,
@@ -126,39 +137,51 @@ $(document).ready(function(){
         dados = todosOsPedidos;
 
         var template = "";
+        var pagination = "";
+        var page = 0;
+        pagination += '<li class="page-item prev">';
+        pagination +=   '<a class="page-link" href="#" aria-label="Previous">';
+        pagination +=         '<span aria-hidden="true">&laquo;</span>';
+        pagination +=         '<span class="sr-only">Previous</span>';
+        pagination +=   '</a>';
+        pagination += '</li>';
 
         for (var i = 0; i < dados.length; i++){
 
             var d = new Date(dados[i].dataPedido);
             var dataPedido = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
-            if(i % 10 == 0)
-                template += '<div id="page-item-'+ i +'"><tr>';
-            else
-            template += '<tr>';
+            if(i % 10 == 0){
+                page++;
+                pagination += '<li class="page-item '+page+'">';
+                pagination +=      '<a class="page-link">'+page+'</a>';
+                pagination +=  '</li>';
+            }
+            template += '<tr class="item-list-'+page+'">';
             template +=     '<td>'+dados[i].idPedido+'</td>';
             template +=     '<td>'+dados[i].empresa.razaoSocial+'</td>';
             template +=     '<td>'+dataPedido+'</td>';
             template +=     '<td>R$ '+dados[i].total+'</td>';
             template +=     '<td>'+dados[i].status.descricao+'</td>';
-            //template +=     '<td>';
             template +=     '<td class="centralizar-linha">';
             template +=     '<input type="button"  class="btn btn-primary itemPedido" idDoPedido="'+dados[i].idPedido+'" data-toggle="modal" data-target="#myModal" value="Ver detalhes">';
             template +=     '</td>';
-            if(i % 10 == 9)
-                template += '<tr></div>';
-            else
-                template += '<tr>';
+            template += '<tr>';
         }
-
-        //document.getElementById('tbody_listagem').innerHTML = template;
-
+        pagination += '<li class="page-item next">';
+        pagination +=   '<a class="page-link" href="#" aria-label="Next">';
+        pagination +=         '<span aria-hidden="true">&raquo;</span>';
+        pagination +=         '<span class="sr-only">Next</span>';
+        pagination +=   '</a>';
+        pagination += '</li>';
+        $('ul.pagination').html(pagination).delay(500);
         $('#tbody_listagem').html(template).delay(500);
+        $('.page-item.1').click();
       }
 
       function getStatus(){
 
         $.ajax({
-            url: 'http://192.168.1.50:8081/GaveteiroApi/status',
+            url: uri+'/status',
             type:'get',
             headers:{ "Authorization": token},
             crossDomain: true,
@@ -194,9 +217,9 @@ $(document).ready(function(){
         //var token   = sessionStorage.getItem('token');
         var url     = "";
         if(status)
-            url = 'http://192.168.1.50:8081/GaveteiroApi/pedido?status='+ status;
+            url = uri+'/pedido?status='+ status;
         if(empresa)
-            url = 'http://192.168.1.50:8081/GaveteiroApi/pedido?empresa='+ empresa;
+            url = uri+'/pedido?empresa='+ empresa;
         
         if(!empresa && !status)
             return false;
@@ -242,7 +265,7 @@ $(document).delegate('.itemPedido', 'click',function(e){
            }
        });
 
-       function montaTemplateModal(){
+    function montaTemplateModal(){
          var dados    = todosOsItens.itens;
          var template = "";
          for (var i = 0; i < dados.length; i++){
@@ -256,7 +279,7 @@ $(document).delegate('.itemPedido', 'click',function(e){
         $('.modal-content tbody').html(template).delay(500);
         $('#status-alterar').val(todosOsItens.status.idStatus);
         $('.pedido-total p').text("R$ "+todosOsItens.total);
-       }
+     }
 
     $('#alterar').click(function(event) {
     if(statusAtual != $('#status-alterar').val()){
@@ -275,10 +298,22 @@ $(document).delegate('.itemPedido', 'click',function(e){
             }
         }
         });
-        statusAtual = $('#status-alterar').val();
-        
+        statusAtual = $('#status-alterar').val();    
       }
     });
 });
     logar();
+    $('.page-item').click(function(event){
+        var paginaAtual = $(this).text();
+        $('.page-item').removeClass('active');
+        $(this).addClass('active');
+        $('#tbody_listagem tr').fadeOut();
+        $('.item-list-'+paginaAtual).fadeIn();
+    });
+
+    $('#sair').click(function(event) {
+        sessionStorage.clear();
+        token = null;
+        window.location.assign = "index.html";
+    });
 });//FIM DO READY
