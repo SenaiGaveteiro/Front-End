@@ -1,40 +1,99 @@
-<html>
+<!DOCTYPE html>
+<html lang="pt-br">
 	<head>
-		<link rel="shortcut icon" href="imagens/favicon.ico" >
+		<link rel="shortcut icon" href="imagens/favicon.ico">
 		<title>Gaveteiro - Recuperar senha </title>
+		<meta charset="UTF-8">
+		<!--				CSS					-->
+		 
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="css/estilo.css">
 		<link href="css/estilo.css" rel="stylesheet">
-		<script src="recuperarsenha.js"> </script>
-		<script src="formulario.js"></script>
+		<style type="text/css" media="screen">
+			input[type=email]{
+				padding: 5px;
+                width: 100%;
+  				margin: 5px auto 7px;
+			}
+		</style>	
 	</head>
+	
 	<body>
+		<!--				HEADER				-->
 		<div class="header">
-			<a href="login.html"> <img src="imagens/gaveteiro-logo.png" class="logo-esquerdo"> </a>
-			<a href="login.html">  <img src="imagens/logo_cortado.png" class="logo-direito"> </a>
+			<a href="index.html"> <img src="imagens/gaveteiro-logo.png" class="logo-esquerdo"> </a>
+			<a href="index.html">  <img src="imagens/logo_cortado.png" class="logo-direito"> </a>
 		</div>
 	
+		<!---				ICONE ARREDONDADO GAVETEIRO			 -->
 		<div class="icone"> </div>
+				
 		
+		<!----				ESTRUTURA DE RECUPERAR SENHA				-->
 		<div class="logar">
+		
 			<h2>Esqueceu sua senha?</h2>
 			
-			<form method="POST">
+			<form method="POST" id="recuperar-senha-ajax">
+			
 				<label for="recuperar-senha">Informe seu e-mail de cadastro:</label>	
-				<input type="text" maxlength="70" id="recuperar-senha">				
+				<input type="email" maxlength="120" id="recuperar-senha" name="recuperar-senha" required>				
 				
-				<button type="submit" class="bt_recuperar" >
-				<a href="menu.html">
-				</a>	
+				<button type="submit" class="bt_recuperar" id="bt_recuperar">	
 					<span class="glyphicon glyphicon-send"></span> Redefinir minha senha
 				</button>
+									
 				<a href="index.html">
 					Voltar
 				</a>	
+			
 			</form>
+			
 		</div>
+		
+		<!--					RODAPÉ					-->
 		<div class="rodape">
 			<p> Copyright @ 2016 Gaveteiro.com - Privacy </p>
-		</div>	
+		</div>
+		
+		
+		<!-- 					MODAL	- REDEFINIR SENHA				-->
+		<div class="modal fade" id="modalRecuperar" role="dialog">
+			<div class="modal-dialog" role="document" >
+				<div class="modal-content">
+				
+					<div class="modal-header titulo-modal">
+					
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						
+						<div class="modal-title">
+							<p>
+								<a href="login.html"> <img src="imagens/gaveteiro-logo.png" class="modal-logo"></a>
+							</p>
+						</div>
+					</div>
+					
+					<div class="modal-body">
+						<p> 
+							
+						</p>
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+					</div>	
+					
+				</div>
+			</div>
+		</div>
+		
 	</body>	
+	
+	
+	<!---				JAVASCRIPT				 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+	<script src="js/bootstrap.min.js"></script>	
+	<script src="js/recuperar-senha.js"></script>
 </html>

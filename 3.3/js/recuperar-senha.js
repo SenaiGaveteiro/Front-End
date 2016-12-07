@@ -13,13 +13,29 @@ $('#recuperar-senha-ajax').submit(function (e) { //
 	$.ajax({
 		url: 'http://192.168.1.50:8081/GaveteiroApi/senha/recuperar',
 		method: 'POST',
-		dataType: 'json', 
+		dataType: 'json',
+		crossDomain: true, 
 		contentType:'application/json',
 		data: JSON.stringify({
-			email: $('#recuperar-senha').val() //	Método, é o valor que eu vou filtrar
-		})
+			email: $('#recuperar-senha').val(), //	Método, é o valor que eu vou filtrar
+		}),
+		statusCode: {
+			400: function(){
+				$('#modalRecuperar .modal-body p').text("E-mail não encontrado!");
+				$('#modalRecuperar').modal("show");	
+			},
+
+			500: function(){
+				$('#modalRecuperar .modal-body p').text("Serviço indisponível, tente novamente mais tarde. ");
+				$('#modalRecuperar').modal("show");
+			}
+
+		}
 	}).done(function(data){
-		window.alert("OI");
+			
+		$('#modalRecuperar .modal-body p').text("Sua senha foi redefinida com sucesso! Verifique o seu e-mail.");
+		$('#modalRecuperar').modal("show");
+
 	});
 
 	$('#bt_recuperar').val("Redefinir minha senha...");

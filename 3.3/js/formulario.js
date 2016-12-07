@@ -19,10 +19,23 @@ $('#formulario-login-ajax').submit(function (e) { //
 			email: $('#logar-email').val(),
 			senha: $('#logar-senha').val()	//	Método, é o valor que eu vou filtrar
 		}),
+		crossDomain: true,
 		statusCode: {
-			200: function(){
-			}	
-		}
+			400: function(){
+				$('#modalRecuperar .modal-body p').text("E-mail não encontrado!");
+				$('#modalRecuperar').modal("show");	
+			},
+
+			401: function(){
+				$('#modalRecuperar .modal-body p').text("Usuário não encontrado, verifique seu e-mail e/ou senha.");
+				$('#modalRecuperar').modal("show");	
+			},
+
+			500: function(){
+				$('#modalRecuperar .modal-body p').text("Serviço indisponível, tente novamente mais tarde. ");
+				$('#modalRecuperar').modal("show");
+			},		
+		}		
 	}).done(function(data){
 
 		console.log(data);

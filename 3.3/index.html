@@ -7,7 +7,13 @@
 		<!-- 			REFERENCIA  - CSS				-->
 		<link href="css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" rel="stylesheet" href="css/estilo.css">
-		
+		<style type="text/css">
+			input[type=email]{
+				padding: 5px;
+                width: 100%;
+  				margin: 5px auto 7px;
+			}
+		</style>
 	</head>
 	
 	<body>
@@ -28,10 +34,10 @@
 			<form method="POST" id="formulario-login-ajax">  <!-- COLOCAR ID -->
 			
 				<label for="logar-email">E-mail: </label>	
-				<input type="text" maxlength="70" id="logar-email" name="logar-email">
+				<input type="email" maxlength="120" id="logar-email" name="logar-email" required>
 				
 				<label for="logar-senha">Senha: </label>
-				<input type="password" maxlength="15" id="logar-senha" name="logar-senha">
+				<input type="password" maxlength="32" id="logar-senha" name="logar-senha" required>
 				
 				<a href="recuperarsenha.html"> Esqueceu sua senha? </a>
 				
@@ -41,8 +47,38 @@
 				 
 			</form>
 		</div>
-		
-		<!---- 				RODAPE 					----->
+<!-- 					MODAL	- REDEFINIR SENHA				-->
+		<div class="modal fade" id="modalRecuperar" role="dialog">
+			<div class="modal-dialog" role="document" >
+				<div class="modal-content">
+				
+					<div class="modal-header titulo-modal">
+					
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						
+						<div class="modal-title">
+							<p>
+								<a href="login.html"> <img src="imagens/gaveteiro-logo.png" class="modal-logo"></a>
+							</p>
+						</div>
+					</div>
+					
+					<div class="modal-body">
+						<p> 
+							
+						</p>
+					</div>
+			
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+					</div>	
+					
+				</div>
+			</div>
+		</div>
+		<!--				RODAPE 					-->
 		<div class="rodape">
 			<p> Copyright @ 2016 Gaveteiro.com - Privacy </p>
 		</div>
@@ -52,6 +88,6 @@
 	
 	<!---				JAVASCRIPT				 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script> 
+	<script src="js/bootstrap.min.js"></script>
 	<script src="js/formulario.js"></script>
-	
 </html>

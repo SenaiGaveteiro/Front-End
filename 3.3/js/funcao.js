@@ -7,18 +7,23 @@ var idEmpresa   = 0;
 $(document).ready(function() {
 
    $("#search").click(function (){
+        $('#search').attr('disabled', false);
         // desabilitando o campo 
-	$('#combobox').attr("disabled", true);
-	// mudando a cor do campo
-        $('#combobox').css("background-color", "#F5F5F5");
-
-        	
+	    $('#combobox').attr("disabled", true);
+	   // mudando a cor do campo
+        $('#combobox').css("background-color", "#F5F5F5");       	
+        }).blur(function(event) {
+            $('#combobox').attr("disabled", false);
+            $('#combobox').css("background-color", "#FFFFFF"); 
         });
 
         $('#combobox').click(function() {
-        	$('#search').attr('disabled', false);
-
+            $('#combobox').attr("disabled", false);
+        	$('#search').attr('disabled', true);
         	$('#search').css('background-color', '000000');
+        }).blur(function(event) {
+            $('#search').attr('disabled', false);
+            $('#search').css("background-color", "#FFFFFF"); 
         }); 
    });
 
@@ -41,29 +46,6 @@ $(document).ready(function() {
 
    });
 
-
-/*
-    $(document).ready(function () {
-        $.ajax({
-            type: "GET",
-            url: "192.168.2.70/GaveteiroAPi/status",
-            data: { empresa: $("#combobox").val() },
-            dataType: 'json',
-            contentType: "application/json; charset=utf-8",
-            success: function (obj) {
-                if (obj != null) {
-                    var data = obj.data;
-                    var selectbox = $('#combobox');
-                    selectbox.find('option').remove();
-                    $.each(data, function (i, d) {
-                        $('<option>').val(d.idStatus).text(d.descricao).appendTo(selectbox);
-                    });
-                }
-            }
-        });
-    })
-*/
-
 //Populando LISTA
 
 $(document).ready(function(){
@@ -74,11 +56,12 @@ $(document).ready(function(){
         var todosOsStatus      = [];
         var email              = $('#email-usuario').val();;
         var senha              = $('#senha-usuario').val();;
-        var admin              = $('#admin').text();;
+        var admin              = $('#admin').text();
+        var idEmpresa          = 0;
+        var usuario            = "";
     function logar(){
         url = uri+'/login';
     $.ajax({
-            
         type:"post",
         url: url,
         data: '{"email": "'+ email +'", "senha" : "'+ senha +'"}',
@@ -88,14 +71,14 @@ $(document).ready(function(){
         success: function (retorno) {
             console.log(retorno);
             //return false;
-                token=retorno.token;
+                token              = retorno.token;
                 empresaSolicitante = retorno.usuario.empresa.razaoSocial;
-                idEmpresa = retorno.usuario.empresa.idEmpresa;           
-                var nomeUsuario = retorno.usuario.nome;
+                idEmpresa          = retorno.usuario.empresa.idEmpresa;
+                usuario            = retorno.usuario;
+                var nomeUsuario    = retorno.usuario.nome;
                 $('#empresa-solicitante').text(empresaSolicitante);
                 $('#nome-usuario').text(nomeUsuario);
             if(token.length > 0){
-
                 getPedido();
                 getStatus();
             }
@@ -146,26 +129,46 @@ $(document).ready(function(){
         pagination +=   '</a>';
         pagination += '</li>';
 
-        for (var i = 0; i < dados.length; i++){
-
-            var d = new Date(dados[i].dataPedido);
-            var dataPedido = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
-            if(i % 10 == 0){
-                page++;
-                pagination += '<li class="page-item '+page+'">';
-                pagination +=      '<a class="page-link">'+page+'</a>';
-                pagination +=  '</li>';
+        if(Array.isArray(dados)){
+            for (var i = 0; i < dados.length; i++){
+                var d = new Date(dados[i].dataPedido);
+                var dataPedido = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+                if(i % 10 == 0){
+                    page++;
+                    pagination += '<li class="page-item '+page+'">';
+                    pagination +=      '<a class="page-link">'+page+'</a>';
+                    pagination +=  '</li>';
+                }
+                template += '<tr class="item-list-'+page+'">';
+                template +=     '<td>'+dados[i].idPedido+'</td>';
+                template +=     '<td>'+dados[i].empresa.razaoSocial+'</td>';
+                template +=     '<td>'+dataPedido+'</td>';
+                template +=     '<td>R$ '+dados[i].total+'</td>';
+                template +=     '<td>'+dados[i].status.descricao+'</td>';
+                template +=     '<td class="centralizar-linha">';
+                template +=     '<input type="button"  class="btn btn-primary itemPedido" idDoPedido="'+dados[i].idPedido+'" data-toggle="modal" data-target="#myModal" value="Ver detalhes">';
+                template +=     '</td>';
+                template += '<tr>';
             }
-            template += '<tr class="item-list-'+page+'">';
-            template +=     '<td>'+dados[i].idPedido+'</td>';
-            template +=     '<td>'+dados[i].empresa.razaoSocial+'</td>';
-            template +=     '<td>'+dataPedido+'</td>';
-            template +=     '<td>R$ '+dados[i].total+'</td>';
-            template +=     '<td>'+dados[i].status.descricao+'</td>';
-            template +=     '<td class="centralizar-linha">';
-            template +=     '<input type="button"  class="btn btn-primary itemPedido" idDoPedido="'+dados[i].idPedido+'" data-toggle="modal" data-target="#myModal" value="Ver detalhes">';
-            template +=     '</td>';
-            template += '<tr>';
+        } else {
+                var d = new Date(dados.dataPedido);
+                var dataPedido = d.getDate() + "/" + d.getMonth() + "/" + d.getFullYear();
+                if(i % 10 == 0){
+                    page++;
+                    pagination += '<li class="page-item '+page+'">';
+                    pagination +=      '<a class="page-link">'+page+'</a>';
+                    pagination +=  '</li>';
+                }
+                template += '<tr class="item-list-'+page+'">';
+                template +=     '<td>'+dados.idPedido+'</td>';
+                template +=     '<td>'+dados.empresa.razaoSocial+'</td>';
+                template +=     '<td>'+dataPedido+'</td>';
+                template +=     '<td>R$ '+dados.total+'</td>';
+                template +=     '<td>'+dados.status.descricao+'</td>';
+                template +=     '<td class="centralizar-linha">';
+                template +=     '<input type="button"  class="btn btn-primary itemPedido" idDoPedido="'+dados.idPedido+'" data-toggle="modal" data-target="#myModal" value="Ver detalhes">';
+                template +=     '</td>';
+                template += '<tr>';
         }
         pagination += '<li class="page-item next">';
         pagination +=   '<a class="page-link" href="#" aria-label="Next">';
@@ -214,15 +217,27 @@ $(document).ready(function(){
 
         var status  = $('#combobox').val();
         var empresa = $('#search').val();
-        //var token   = sessionStorage.getItem('token');
         var url     = "";
-        if(status)
-            url = uri+'/pedido?status='+ status;
-        if(empresa)
-            url = uri+'/pedido?empresa='+ empresa;
-        
-        if(!empresa && !status)
+        if(admin != 'false'){
+            if(status)
+                url = uri+'/pedido?status='+ status;
+
+            if(empresa)
+                url = uri+'/pedido?empresa='+ empresa+'&status='+status;
+            
+            if(!empresa && !status)
             return false;
+
+        } else {
+            if(status)
+                url = uri+'/empresa/'+idEmpresa+'/pedido?status='+ status;
+
+            if(empresa)
+                url = uri+'/pedido/'+ empresa;
+            
+            if(!empresa && !status)
+            return false;
+        }
 
         $.ajax({
             url: url,
@@ -261,7 +276,7 @@ $(document).delegate('.itemPedido', 'click',function(e){
            {
                 todosOsItens = jsonRetornado;
                 console.log(jsonRetornado);
-                 montaTemplateModal();
+                montaTemplateModal();
            }
        });
 

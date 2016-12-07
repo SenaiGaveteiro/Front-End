@@ -46,7 +46,7 @@
 	width: 300px;
 }
 
-.logar input[type=text]{
+.logar input[type=email]{
 	padding: 5px;	
 	width: 100%;
 	margin: 5px auto 20px;
@@ -85,7 +85,6 @@
 }
 
 
-
 /*			ESQUECEU SUA SENHA			*/
 
 .bt_recuperar{
@@ -100,7 +99,6 @@
 .bt_recuperar:hover{
 	background-color: #005890;
 }
-
 
 
 /*			RODAPE					*/
@@ -148,7 +146,7 @@
 }
 
 .menu-sair a:hover{
-	color: #F0F0F0	
+	color: #F0F0F0;	
 }
 
 .menu-padrao{
@@ -156,52 +154,43 @@
 }
 
 
-
 /*					CONTEUDO					 	*/
 
 .busca-pedidos {
-	margin-top: 25px;
+	margin-top: 20px;
 	margin-bottom: 10px;
 	overflow: hidden;
 }
 
+.busca-pedidos div{
+	height: 50px;
+}
+
 .busca-pedidos  select{
-	padding: 10px;	
+	height: 100%;
 }
 
 .busca-pedidos input[type=text]{
-	padding: 8.2px;
+	height: 100%;
 }
 
-.busca-pedidos input[type=button]{
-	padding: 10px;	
+.busca-pedidos input[type=submit]{
 	background-color: #0074BC;
 	color: white;
 	border: none;
+	height: 100%;
 }
 
-#pesquisar{
-	padding: 10px;	
-	background-color: #0074BC;
-	color: white;
-	border: none;
-}
-
-#pesquisar:hover{
+.busca-pedidos input[type=submit]:hover{
 	background-color: #005890;
 }
-
-.busca-pedidos input[type=button]:hover{
-	background-color: #005890;
-}
-
 
 .titulo-lista{
-	margin: -1px auto;
+	margin: -2px auto;
 	color: #363636;
-	font-size: 21px;
+	font-size: 19px;
 	text-align: center;
-	 font-weight: bolder;
+	font-weight: bolder;
 }
 
 .lista-pedidos{
@@ -217,7 +206,23 @@
 	float: right;
 }
 
+
 /*			MODAL 		DADOS 		PEDIDOS			*/
+
+
+.titulo-modal{
+	background-color: #0074BC;
+}
+
+.titulo-modal p{
+	text-align: center;
+}
+
+.modal-logo{
+	width: 180px;
+	height: 80px;	
+}
+
 
 .modal-pedido{
 	 overflow: hidden;	
@@ -230,20 +235,13 @@
 	font-weight: bolder;
 	overflow: hidden;	
 }
-.titulo-pedido-status{
-
-	margin: 0 auto;
-	color: white;
-	text-align:right;
-	font-size: 10px;
-}
 
 .titulo-pedido select{
 	float: right;
 	color: black;
 	font-size: 16px;
 	padding: 5px;
-	font-weight: normal;
+	font-weight: none;
 	width: 250px;
 }
 
@@ -276,8 +274,7 @@
 }
 
 .menu-usuario{
-	text-align: center;
-	
+	text-align: center;	
 }
 
 .menu-sair{
@@ -317,8 +314,8 @@
 	width: 30%;
 }
 
-
 }
+
 
 @media screen and (max-width: 409px){
 

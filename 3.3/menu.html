@@ -10,20 +10,23 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 		<script>
-			//alert(sessionStorage.getItem('email'));
 			var token 	= sessionStorage.getItem('token');
 			var email 	= sessionStorage.getItem('email');
 			var senha 	= sessionStorage.getItem('senha');
 			var uri   	= 'http://192.168.1.50:8081/GaveteiroApi';
 			var id    	= sessionStorage.getItem('id');
 			var usuario = JSON.parse(sessionStorage.getItem('usuario'));
+			var admin   = 0;
 			if(token == null)
 				window.location.assign('index.html');
-			if(usuario.tipoUsuario.descricao.toString().localeCompare('Administrador') != 0 
-                || usuario.empresa.cnpj.toString().localeCompare('16.631.233/0001-22') != 0)
-            	$('html').prepend('<span id="admin" style="display:none">false</span>');
-            else
+
+			if(usuario.tipoUsuario.descricao.toString().localeCompare('Administrador') != 0 || usuario.empresa.cnpj.toString().localeCompare('16.631.233/0001-22') != 0){
+            	$('html').prepend('<span id="admin" style="display:none">false</span>');         	
+        	} else {
             	$('html').prepend('<span id="admin" style="display:none">true</span>');
+            	admin = 1;
+            }
+
 			$('html').prepend('<span id="token" style="display:none">'+token+'</span>');
 			$('html').prepend('<input type="hidden" id="email-usuario" value="'+email+'"/>');
 			$('html').prepend('<input type="hidden" id="senha-usuario" value="'+senha+'"/>');
@@ -89,43 +92,6 @@
 							<option value="status_entregue"> Entregue </option>
 							<option value="status_aguardandotransporte"> Aguardando transporte</option>
 						</select>
-
-						<!-- <select name="grama" id="GramaSelecionado" style="width:125px;" onchange="desabilitarBox(this.value, 'comboGrama')">
-     <option value="dispositivo">Selecionar DISPOSITIVO</option>
-     <option value="1"selected="selected">GRAMA</option>
-    </select>
-    
-    
-    <select name="dispositivo" id="DispSelecionado" style="width:125px;" onchange="desabilitarBox(this.value,'comboDispositivo')">
-     <option value="grama">Selecionar GRAMA</option>
-     <option value="1"selected="selected">DISPOSITIVO</option
-
-
-     	function desabilitarBox(comboBoxValue, comboBox){  
-	if(comboBox == "comboGrama"){
-		document.getElementById("DispSelecionado").disabled = true;
-		if(comboBoxValue == "dispositivo"){
-			document.getElementById("GramaSelecionado").disabled = true;
-			document.getElementById("DispSelecionado").disabled = false;
-		}
-	} else if (comboBox == "comboDispositivo"){
-		document.getElementById("GramaSelecionado").disabled = true;
-		if(comboBoxValue == "grama"){
-			document.getElementById("DispSelecionado").disabled = true;
-			document.getElementById("GramaSelecionado").disabled = false;
-		}
-	}
-}
-
-
-
-
-
-
-
-     >
-    </select>  -->
-
 					
 						<form method="POST">
 							<input type="text" class="col-md-7 col-xs-7" id="search" maxlength="70"  name="search" placeholder="Digite o nome da empresa solicitante">
@@ -290,7 +256,12 @@
 	
 	<script>
 		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();   
+			$('[data-toggle="tooltip"]').tooltip();
+			if(!admin)
+				$('#search').attr('placeholder', 'Digite o nº do pedido da empresa solicitante');
+			console.log($('.page-item.2').length);
+			if($('.page-item.2') in 'undefined')
+    			$('.pagination').css('display', 'none');
 		});
 
 		$(document).delegate('.page-item', 'click',function(e){
@@ -303,7 +274,7 @@
        	   	$('.item-list-'+paginaAtual).fadeIn(0);
 		  } else if($(this).hasClass('next')) {
 		  	var paginaAtual = Number($('.page-item.active').text());
-		  	paginaAtual = (paginaAtual <= $('.pagination').length) ? paginaAtual+1 : paginaAtual;
+		  	paginaAtual = (paginaAtual <= $('.pagination li').length-2) ? paginaAtual+1 : paginaAtual;
 		  	$('.page-item').removeClass('active');
        	   	$('.page-item.'+paginaAtual).addClass('active');
        	   	$('#tbody_listagem tr').fadeOut(0);
@@ -316,6 +287,7 @@
        	   $('.item-list-'+paginaAtual).fadeIn(0);
        	  }
     	});
+
 	</script>
 		
 				<div class="rodape col-md-12">
